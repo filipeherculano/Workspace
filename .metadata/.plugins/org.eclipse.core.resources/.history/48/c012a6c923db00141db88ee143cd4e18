@@ -206,7 +206,7 @@ public class Main {
 	}
 	
 	private static void editarCurriculo(String id){
-		boolean noParentExist = true, noPerson = true;
+		boolean parentExist = false, noPerson = true;
 		String Ini[] = new String[3], Fim[] = new String[3], iesGrad[] = new String[3], 
 				pais[] = new String[3], course[] = new String[3], tipo[] = {"graduação","mestrado","doutorado"}, level;
 		
@@ -348,7 +348,6 @@ public class Main {
 							List<Element> listInstituição = b.getChildren();
 							for(Element c : listInstituição){
 								if(c.getAttributeValue("nome").equals(iesGrad[0])){
-									noParentExist = false;
 									c.addContent(Curso);
 									
 									XMLOutputter xxout = new XMLOutputter();
@@ -358,9 +357,11 @@ public class Main {
 									} catch(IOException e) {
 										e.printStackTrace();
 									}
+								}else{
+									parentExist = true;
 								}
 							}
-							if(noParentExist){
+							if(parentExist){
 								Instituição.addContent(Curso);
 								b.addContent(Instituição);
 								
