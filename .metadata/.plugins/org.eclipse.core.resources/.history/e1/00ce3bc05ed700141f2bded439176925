@@ -1,0 +1,5 @@
+
+public class Curso {
+	private int anoIni, anoFim;
+	private String nivel, nome;
+}

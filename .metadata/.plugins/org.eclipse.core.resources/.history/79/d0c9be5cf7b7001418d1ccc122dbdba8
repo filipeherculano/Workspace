@@ -1,0 +1,116 @@
+import java.util.Scanner;
+
+
+public class table {
+	jogador jogadores[] = new jogador[4];
+	private Scanner sc1 = new Scanner(System.in);
+	private String color;
+	private int i = 0, resp;
+	
+	
+	// ----------------- Partida ---------------------
+	public void match(){
+		for(jogador player : jogadores){
+			if(player.getPosition() >= 40){
+				System.out.println("Fim de jogo, jogador "+player.getCor()+" ganhou a partida!");
+			}
+			else{
+				System.out.println("Vez do jogador "+player.getCor());
+				System.out.println("Pressione <1> para jogar dados!");
+				this.resp = this.sc1.nextInt();
+				if(resp == 1){
+					do{
+						if(player.podeJogar()){
+							System.out.println("Posição atual: "+player.getPosition());
+							player.movimentar(player.rollDice());
+							
+							if(player.getPosition() == 17 || player.getPosition() == 27){
+								System.out.println("Você pode escolher um competidor para voltar! Diga a cor!");
+								this.color = this.sc1.next();
+								this.reseta(this.color);
+							}
+							else{
+								if(player.getPosition() == 20 || player.getPosition() == 35){
+									System.out.println("Opa!!\n Troque de lugar com o mais atrasado!");
+									this.trocaComAnterior(player);
+								}
+							}
+						}
+						else{
+							System.out.println("Jogador "+player.getCor()+" não pode jogar essa rodada.");
+						}
+						
+					}while (player.playAgain);
+				}
+			}
+		}
+	}
+	
+	public void trocaComAnterior(jogador base){
+		int min = jogadores[0].getPosition();
+		String color = null;
+		jogador aux = null;
+		
+		// ---------------- Achando a cor mais distante -------------- 
+		for(int j = 1; j < 4; j++){
+			if(jogadores[j].getPosition() <= min){
+				min = jogadores[j].getPosition();
+				color = jogadores[j].getCor();
+			}
+		}
+		
+		
+		// --------------- Trocando com o mais distante -------------
+		for(int j = 0; j < 4; j++){
+			if(jogadores[j].getCor() == color){
+				aux = jogadores[i];
+				jogadores[i] = base;
+				base = aux;
+			}
+		}
+		
+	}
+	
+	public void reseta(String cor){
+		for(jogador player2 : jogadores){
+			if (player2.getCor() == cor){
+				player2.setPosition(0);
+			}
+		}
+	}
+	
+	// -------------- Construtores ---------------------
+	public void criarAzarado(String cor){
+		if(this.i < 4){
+			jogadores[this.i] = new jogadorAzarado(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public void criarNormal(String cor){
+		if(i < 4){
+			jogadores[i] = new jogadorNormal(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public void criarSortudo(String cor){
+		if(i < 4){
+			jogadores[i] = new jogadorNormal(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public int getInd(){
+		return this.i;
+	}
+}

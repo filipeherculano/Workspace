@@ -1,0 +1,7 @@
+
+public class jogadorSortudo extends jogador{
+	public jogadorSortudo(String cor) {
+		super(cor, "sortudo");
+	}
+
+}

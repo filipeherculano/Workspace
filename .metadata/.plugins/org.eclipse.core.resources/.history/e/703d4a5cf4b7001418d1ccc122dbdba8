@@ -1,0 +1,8 @@
+
+public class jogadorAzarado extends jogador{
+	public jogadorAzarado(String cor){
+		super(cor, "azarado");
+	}
+	
+	
+}

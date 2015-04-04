@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT cv (pessoa+) >
+<!ATTLIST pessoa id NMTOKEN #REQUIRED >
+<!ELEMENT pessoa (dadosPessoais, formacao) >
+<!ELEMENT dadosPessoais (nome,idade,sexo) >
+<!ELEMENT formacao (instituição+) >
+<!ELEMENT instituicao (curso+) >
+<!ATTLIST instituicao nome NMTOKEN #REQUIRED >
+<!ATTLIST instituicao pais NMTOKEN #REQUIRED >
+<!ELEMENT curso ( #PCDATA ) >
+<!ATTLIST curso anoIni NMTOKEN #REQUIRED >
+<!ATTLIST curso anoFim NMTOKEN #REQUIRED >
+<!ATTLIST curso nivel (graduação | mestrado | doutorado) NMTOKEN #REQUIRED >

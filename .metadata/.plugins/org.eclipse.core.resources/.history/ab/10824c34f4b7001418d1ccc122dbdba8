@@ -1,0 +1,37 @@
+
+public class jogadorAzarado extends jogador{
+	public jogadorAzarado(String cor){
+		super(cor, "azarado");
+	}
+	
+	public int movimentar(){
+		if ((this.position != 10 && this.position != 25 && this.position != 38) || (!abletoPlay)){
+			
+			do{
+				this.r1 = (randomNumber.nextInt(6 - 1) + 1);
+				this.r2 = (randomNumber.nextInt(6 - 1) + 1);
+				
+				if(this.r1 == this.r2){
+					this.r3 = (randomNumber.nextInt(6 - 1) + 1) + (randomNumber.nextInt(6 - 1) + 1);
+				}
+				
+			}while (this.r1 + this.r2 < 7 && this.r3 < 7);
+			
+			
+			this.position += this.r1 + this.r2 + this.r3;
+			
+			if(this.position == 5 || this.position == 15 || this.position == 30){
+				System.out.println("Casa da sorte! Ande mais três casas!");
+				this.position += 3;
+			}
+	
+			abletoPlay = true;
+		}
+		else{
+			System.out.println("Impossibilidado de jogar esta rodada!");
+			abletoPlay = false;
+		}
+		
+		return super.movimentar();
+	}
+}

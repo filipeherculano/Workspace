@@ -1,0 +1,10 @@
+
+public class Profissional {
+	private int id, idade;
+	private String nome, sexo;
+	
+	public Profissional(){
+		Instituição a = new Instituição;
+	}
+
+}

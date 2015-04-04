@@ -1,0 +1,112 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import javax.print.Doc;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
+
+
+public class Main {
+	
+	static ArrayList<Profissional> profissional = new ArrayList<Profissional>();
+	static Scanner sc = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		int r;
+		do{
+			System.out.println("O que você deseja?");
+			System.out.println("1.Cadastrar um novo currículo.");
+			System.out.println("2.Editar currículo.");
+			System.out.println("-.Mostrar relatórios:");
+			System.out.println("3.---Pessoas que estudaram na instituição (...)");
+			System.out.println("4.---Mulheres que fizeram/estão fazendo mestrado no Brasil.");
+			System.out.println("5.---Homens que fizeram doutorado no exterior.");
+			System.out.println("6.Sair.");
+			r = sc.nextInt();
+			switch(r){
+				case 1:
+					cadastraCurriculo();
+					break;
+				case 2:
+					editarCurriculo();
+					break;
+				case 3:
+					showRelatorio();
+					break;
+				case 4:
+					showRelatorio();
+					break;
+				case 5:
+					showRelatorio();
+					break;
+				case 6:
+					System.out.println("Fim do programa.");
+					break;
+				default:
+					System.out.println("Você digitou uma opção inválida.");
+					
+			}
+		}while(r != 6);
+	}
+
+	private static void cadastraCurriculo() {
+		String name, sex, iesGrad[] = new String[3], pais[] = new String[3], curso[] = new String[3], tipo[] = {"graduação","mestrado","doutorado"};
+		int age, Ini[] = new int[3], Fim[] = new int[3];
+
+		System.out.print("Digite seu nome:");
+			name = sc.next();
+		System.out.print("Digite sua idade:");
+			age = sc.nextInt();
+		
+		do{
+			System.out.print("Digite seu sexo(Masculino ou Feminino):");
+				sex = sc.next();
+		}while(!(sex.equals("Masculino") || sex.equals("Feminino")));
+		
+		for(int i = 0; i < 3; i++){
+			System.out.print("Nome da IES que fez "+tipo[i]+":");
+				iesGrad[i] = sc.next().toUpperCase();
+			System.out.print("País localizado:");
+				pais[i] = sc.next();
+			System.out.print("Nome do curso:");
+				curso[i] = sc.next();
+			System.out.print("Ano de entrada:");
+				Ini[i] = sc.nextInt();
+			System.out.print("Ano de saída:");
+				Fim[i] = sc.nextInt();
+				
+		try {
+			
+			
+		} catch (JDOMException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	private static void editarCurriculo(){
+		
+	}
+	
+	private static void showRelatorio(){
+		
+	}
+}

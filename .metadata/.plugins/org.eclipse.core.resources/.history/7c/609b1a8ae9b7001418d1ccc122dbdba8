@@ -1,0 +1,65 @@
+import java.util.Scanner;
+
+
+public class table {
+	jogador jogadores[] = new jogador[4];
+	private Scanner sc1 = new Scanner(System.in);
+	private int i = 0;
+	
+	
+	// ----------------- Partida ---------------------
+	public void match(){
+		for(jogador player : jogadores){
+			System.out.println("Vez do jogador "+player.getCor());
+			System.out.println("Jogar dados? <Y/N>");
+			
+			if(player.podeJogar()){
+				
+			}
+			else{
+				System.out.println("Jogador "+player.getCor()+" não pode jogar essa rodada.");
+			}
+			player.rollDice();
+			player.moimentar();
+			do{
+				
+			}while (player.playAgain);
+		}
+	}
+	
+	
+	// -------------- Construtores ---------------------
+	public void criarAzarado(String cor){
+		if(i < 4){
+			jogadores[i] = new jogadorAzarado(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public void criarNormal(String cor){
+		if(i < 4){
+			jogadores[i] = new jogadorNormal(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public void criarSortudo(String cor){
+		if(i < 4){
+			jogadores[i] = new jogadorNormal(cor);
+			this.i ++;
+		}
+		else{
+			System.out.println("Não é possível adicionar mais jogadores.");
+		}
+	}
+	
+	public int getInd(){
+		return this.i;
+	}
+}

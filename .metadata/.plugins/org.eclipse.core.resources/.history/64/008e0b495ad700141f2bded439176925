@@ -1,0 +1,6 @@
+
+public class Profissional {
+	private int id, idade;
+	private String nome, sexo;
+
+}

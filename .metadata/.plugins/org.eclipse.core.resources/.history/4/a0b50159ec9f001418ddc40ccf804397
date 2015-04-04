@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Agenda {
+	private ArrayList<Pessoa> pessoas;
+	private ArrayList<Pessoa> people;
+	
+	public void adicionarContato(Pessoa c){
+		pessoas.add(c);
+	}
+	
+	public ArrayList procurarConta(String nome, int idade){
+		int j = 0;
+		for (int i = 0; i < pessoas.size(); i++){
+			if(pessoas.get(i).getNome() == nome){
+				people.get(j) = pessoas.get(i);
+			}
+		}
+	}
+}

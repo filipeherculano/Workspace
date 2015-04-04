@@ -1,0 +1,157 @@
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import org.jdom2.Attribute;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.XMLOutputter;
+
+
+public class Main {
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int r;
+		do{
+			System.out.println("O que você deseja?");
+			System.out.println("1.Cadastrar um novo currículo.");
+			System.out.println("2.Editar currículo.");
+			System.out.println("-.Mostrar relatórios:");
+			System.out.println("3.---Pessoas que estudaram na instituição (...)");
+			System.out.println("4.---Mulheres que fizeram/estão fazendo mestrado no Brasil.");
+			System.out.println("5.---Homens que fizeram doutorado no exterior.");
+			System.out.println("6.Sair.");
+			r = sc.nextInt();
+			switch(r){
+				case 1:
+					cadastraCurriculo();
+					break;
+				case 2:
+					editarCurriculo();
+					break;
+				case 3:
+					showRelatorio();
+					break;
+				case 4:
+					showRelatorio();
+					break;
+				case 5:
+					showRelatorio();
+					break;
+				case 6:
+					System.out.println("Fim do programa.");
+					break;
+				default:
+					System.out.println("Você digitou uma opção inválida.");
+					
+			}
+		}while(r != 6);
+	}
+
+	private static void cadastraCurriculo() {
+		Scanner sc = new Scanner(System.in);
+		String age, name, sex,Ini[] = new String[3], Fim[] = new String[3], iesGrad[] = new String[3], 
+				pais[] = new String[3], course[] = new String[3], tipo[] = {"graduação","mestrado","doutorado"};
+
+		System.out.print("Digite seu nome:");
+			name = sc.next();
+		System.out.print("Digite sua idade:");
+			age = sc.next();
+		
+		do{
+			System.out.print("Digite seu sexo(Masculino ou Feminino):");
+				sex = sc.next();
+		}while(!(sex.equals("Masculino") || sex.equals("Feminino")));
+		
+		for(int i = 0; i < 3; i++){
+			System.out.print("Nome da IES que fez "+tipo[i]+":");
+				iesGrad[i] = sc.next().toUpperCase();
+			System.out.print("País localizado:");
+				pais[i] = sc.next();
+			System.out.print("Nome do curso:");
+				course[i] = sc.nextLine();
+			System.out.print("Ano de entrada:");
+				Ini[i] = sc.next();
+			System.out.print("Ano de saída:");
+				Fim[i] = sc.next();
+		}
+				
+		Element root = new Element("cv");
+		
+		Document newDocument = new Document(root);
+		
+		Element pessoa = new Element("pessoa");
+		Attribute id = new Attribute("id", "1");
+		pessoa.setAttribute(id);
+		
+		Element dadosPessoais = new Element("dadosPessoais");
+		
+		Element nome = new Element("nome");
+		nome.setText(name);
+		
+		Element sexo = new Element("sexo");
+		sexo.setText(sex);
+		
+		Element idade = new Element("idade");
+		idade.setText(age);
+		
+		dadosPessoais.addContent(nome);
+		dadosPessoais.addContent(sexo);
+		dadosPessoais.addContent(idade);
+		
+		Element formação = new Element("formação");
+		
+		Element instituição;
+		Attribute iesName, iesCountry;
+		for(int i = 0; i < 3; i++){
+			if ((i == 1) && (iesGrad[0].equals(iesGrad[1]))){
+				continue;
+			}else{
+				if ((i == 2) && (iesGrad[0].equals(iesGrad[2]) || iesGrad[1].equals(iesGrad[2]))){
+					continue;
+				}
+			}
+			instituição = new Element("instituição");
+			iesName = new Attribute("nome", iesGrad[i]);
+			iesCountry = new Attribute("país", pais[i]);
+			instituição.setAttribute(iesName);
+			instituição.setAttribute(iesCountry);
+		}
+		
+		Element curso;
+		Attribute anoIni, anoFim, nivel;
+		for(int i = 0; i < 3; i++){
+			curso = new Element("curso");
+			nivel = new Attribute("nível", tipo[i]);
+			anoIni = new Attribute("anoIni", Ini[i]);
+			anoFim = new Attribute("anoFim", Fim[i]);
+			curso.setAttribute(anoIni);
+			curso.setAttribute(anoFim);
+			curso.setAttribute(nivel);
+			curso.setText(course[i]);
+		}
+		
+		XMLOutputter xout = new XMLOutputter();
+		try{
+			xout.output(newDocument, System.out);
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	private static void editarCurriculo(){
+		
+	}
+	
+	private static void showRelatorio(){
+		
+	}
+}

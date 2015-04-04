@@ -1,0 +1,28 @@
+
+public class Disciplina {
+	private int codigo;
+	private String nome;
+	private Aluno []alunos = new Aluno[40];
+	private int indice = 0;
+	
+	public boolean matriculaAluno(Aluno a){
+		for(int i = 0; i < 40; i++){
+			if(alunos[i] == null){
+				alunos[i] = a;
+				System.out.println("A matrícula foi feita com sucesso");
+				return true;
+			}
+		}
+		System.out.println("Não existe mais espaço na disciplina");
+		return false;
+	}
+		
+	public void atribuirNota(int matricula, double n1, double n2){
+		for (int i = 0; i < 40; i++){
+			if(alunos[i].getMatricula() == matricula){
+				alunos[i].setNota1(n1);
+				alunos[i].setNota2(n2);
+			}
+		}
+	}
+}

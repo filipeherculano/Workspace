@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+
+public class Aeroporto {
+	private String codigo;
+	private String nome;
+	private boolean ehInternacional;
+	private ArrayList<Aviao> avioesNoPatio;
+	
+	public Aeroporto(String codigo, String nome){
+		this.codigo = codigo;
+		this.nome = nome;
+	}
+	
+	public boolean internacional(){
+		return this.ehInternacional;
+	}
+	
+	public void alterna(){
+		if(this.ehInternacional){
+			this.ehInternacional = false;
+		}
+		else{
+			this.ehInternacional = true;
+		}
+	}
+	
+	public void estaPousada(String prefixo){
+		
+	}
+	
+	public boolean ehIgual(Aeroporto c){
+		if(this.codigo == c.getCodigo()){
+			return true;
+		}
+		return false;
+	}
+	
+	public String getCodigo(){
+		return this.codigo;
+	}
+}

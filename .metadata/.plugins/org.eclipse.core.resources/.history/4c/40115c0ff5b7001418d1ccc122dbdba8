@@ -1,0 +1,80 @@
+import java.util.Scanner;
+import java.util.Random;
+
+public class Main {
+	public static void main(String[] args) {
+		table jogo = new table();
+		Random sc2 = new Random();
+		Scanner sc1 = new Scanner(System.in);
+		String cor;
+		int resp, random, i = 0;
+		
+		
+		// ------------ Setando jogadores ! --------------------
+		do{
+			System.out.println("Aqui você adiociona novos jogadores!");
+			System.out.println("<1> Adicionar novo jogador.");
+			System.out.println("<2> Começar partida.");
+			resp = sc1.nextInt();
+			if(resp == 1){
+				
+				System.out.println("Informe a cor do novo jogador!");
+				cor = sc1.next();
+				random = 1;
+						//sc2.nextInt(3 - 1) + 1;
+				
+				if(random == 1){
+					jogo.criarAzarado(cor);
+				}
+				else{
+					if(random == 2){
+						jogo.criarNormal(cor);
+					}
+					else{
+						jogo.criarSortudo(cor);
+					}
+				}
+			}
+			else{
+				if(jogo.getInd() < 2){
+					System.out.println("O jogo não pode ser começado, pois existe menos de dois jogadores!");
+				}
+				else{
+					if(jogo.getInd() == 3){
+						System.out.println("O jogo começará, visto que o número total de jogadores foi atingido!");
+					}
+				}
+			}
+		}while(resp != 2 || jogo.getInd() < 2);
+		
+		
+		// ------------------ Começando a partida! ---------------------
+		do{
+			String color;
+			int p, aux;
+			for(jogador player1 : jogadores){
+				System.out.println("Vez do jogador de cor "+player1.getCor());
+//				System.out.println("Posição atual : "+player1.getPosition());
+//				p = player1.movimentar();
+//				if (p == 17 || p == 27){
+//					System.out.println("Qual cor do jogador que você quer mandar para o começo?");
+//					color = sc1.next();
+//					
+//					for(jogador player2 : jogadores){
+//						if(color == player2.getCor()){
+//							player2.reset();
+//						}
+//					}
+//					
+//				}
+//				else{
+//					if(p == 20 || p == 35){
+//						System.out.println("Você foi trocado com o jogador mais distante!");
+//					}
+//				}
+//				System.out.println("Posição atual após jogada: "+player1.getPosition());
+			}
+		}while(jogadores[0].getPosition() < 40 && jogadores[1].getPosition() < 40 && jogadores[2].getPosition() < 40 && jogadores[3].getPosition() < 40);
+	}
+
+}

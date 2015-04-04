@@ -1,0 +1,11 @@
+
+public class Aviao {
+	private String prefixo;
+	private String modelo;
+	private String fabricante;
+	private int assentosOcupados;
+	
+	public String retornarPrefix{
+		System.out.println(this.prefixo);
+	}
+}

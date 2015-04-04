@@ -1,0 +1,18 @@
+Nome: filipe
+Sexo: Masculino
+Idade: 2121
+
+Graduação: UECE(-)
+Curso: -
+Início: -
+Fim: -
+
+Mestrado: -(-)
+Curso: --
+Início: -
+Fim: -
+
+Doutorado: -(-)
+Curso: -
+Início: -
+Fim: -

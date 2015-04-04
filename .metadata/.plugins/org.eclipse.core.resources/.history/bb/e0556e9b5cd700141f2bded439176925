@@ -1,0 +1,17 @@
+import java.util.ArrayList;
+
+
+public class Profissional {
+	private int id, idade;
+	private String nome, sexo;
+	private Instituição []a = new Instituição[3];
+	private ArrayList<Curso> curso = new ArrayList();
+	
+	public Profissional(int id, int idade, String nome, String sexo){
+		this.id = id;
+		this.idade = idade;
+		this.nome = nome;
+		this.sexo = sexo;
+	}
+
+}
