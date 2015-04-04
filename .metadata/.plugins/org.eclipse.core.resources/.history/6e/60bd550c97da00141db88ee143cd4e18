@@ -206,9 +206,8 @@ public class Main {
 	}
 	
 	private static void editarCurriculo(String id){
-		boolean parentExist = false, noPerson = true;
 		String Ini[] = new String[3], Fim[] = new String[3], iesGrad[] = new String[3], 
-				pais[] = new String[3], course[] = new String[3], tipo[] = {"graduação","mestrado","doutorado"}, level;
+				pais[] = new String[3], course[] = new String[3], tipo[] = {"graduação","mestrado","doutorado"};
 		
 		String option = null;
 		
@@ -231,160 +230,98 @@ public class Main {
 		Element root = newDocument.getRootElement();
 		
 		
-		List<Element> listPessoas = root.getChildren();
-		for(Element a : listPessoas){
-			if(a.getAttributeValue("id").equals(id)){
-				noPerson = false;
-				Scanner sc = new Scanner(System.in);
-				System.out.println("O que deseja fazer?");
-				System.out.println("<1> Adicionar nova formação.");
-				System.out.println("<2> Adicionar novo curso à uma formação existente.");
-				option = sc.nextLine();
-				switch(option){
-					case "1":
-						for(int i = 0; i < 3; i++){
-							System.out.print("Nome da IES que fez "+tipo[i]+":");
-								iesGrad[i] = sc.nextLine().toUpperCase();
-							System.out.print("País localizado:");
-								pais[i] = sc.nextLine();
-							System.out.print("Nome do curso:");
-								course[i] = sc.nextLine();
-							System.out.print("Ano de entrada:");
-								Ini[i] = sc.nextLine();
-							System.out.print("Ano de saída:");
-								Fim[i] = sc.nextLine();
-						}
-						
-						Element formação = new Element("formação");
-						
-						Element instituição[] = new Element[3];
-						Attribute iesName, iesCountry;
-						for(int i = 0; i < 3; i++){
-							if ((i == 1) && (iesGrad[0].equals(iesGrad[1]))){
-								continue;
-							}else{
-								if ((i == 2) && (iesGrad[0].equals(iesGrad[2]) || iesGrad[1].equals(iesGrad[2]))){
+		do{
+			List<Element> listPessoas = root.getChildren();
+			for(Element a : listPessoas){
+				if(a.getAttributeValue("id").equals(id)){
+					Scanner sc = new Scanner(System.in);
+					System.out.println("O que deseja fazer?");
+					System.out.println("<1> Adicionar nova formação.");
+					System.out.println("<2> Adicionar novo curso à uma formação existente.");
+					System.out.println("<3> Sair.");
+					option = sc.nextLine();
+					switch(option){
+						case "1":
+							for(int i = 0; i < 3; i++){
+								System.out.print("Nome da IES que fez "+tipo[i]+":");
+									iesGrad[i] = sc.nextLine().toUpperCase();
+								System.out.print("País localizado:");
+									pais[i] = sc.nextLine();
+								System.out.print("Nome do curso:");
+									course[i] = sc.nextLine();
+								System.out.print("Ano de entrada:");
+									Ini[i] = sc.nextLine();
+								System.out.print("Ano de saída:");
+									Fim[i] = sc.nextLine();
+							}
+							
+							Element formação = new Element("formação");
+							
+							Element instituição[] = new Element[3];
+							Attribute iesName, iesCountry;
+							for(int i = 0; i < 3; i++){
+								if ((i == 1) && (iesGrad[0].equals(iesGrad[1]))){
 									continue;
-								}
-							}
-							instituição[i] = new Element("instituição");
-							iesName = new Attribute("nome", iesGrad[i]);
-							iesCountry = new Attribute("país", pais[i]);
-							instituição[i].setAttribute(iesName);
-							instituição[i].setAttribute(iesCountry);
-						}
-						
-						Element curso;
-						Attribute anoIni, anoFim, nivel;
-						for(int i = 0; i < 3; i++){
-							curso = new Element("curso");
-							nivel = new Attribute("nível", tipo[i]);
-							anoIni = new Attribute("anoIni", Ini[i]);
-							anoFim = new Attribute("anoFim", Fim[i]);
-							curso.setAttribute(anoIni);
-							curso.setAttribute(anoFim);
-							curso.setAttribute(nivel);
-							curso.setText(course[i]);
-							for(int j = 0; j < 3; j++){
-								if(instituição[j] != null){
-									if(instituição[j].getAttributeValue("nome").equals(iesGrad[i])){
-										instituição[j].addContent(curso);
-									}
-								}
-							}
-						}
-						
-						for(int i = 0; i < 3; i++){
-							if(instituição[i] != null){
-								formação.addContent(instituição[i]);
-							}
-						}
-						
-						a.addContent(formação);
-						
-						XMLOutputter xout = new XMLOutputter();
-						try{
-							FileWriter arquivo = new FileWriter(new File("curriculo.xml"));
-							xout.output(newDocument, arquivo);
-						} catch(IOException e) {
-							e.printStackTrace();
-						}
-						
-						break;
-					case "2":
-						System.out.print("Digite o nome do curso:");
-						course[0] = sc.nextLine();
-						System.out.print("Digite o nome da faculdade que fez este curso:");
-						iesGrad[0] = sc.nextLine().toUpperCase();
-						System.out.print("Digite o país desta ies:");
-						pais[0] = sc.nextLine();
-						do{
-							System.out.print("Digite o nível (graduação, mestrado ou doutorado):");
-							level = sc.nextLine();
-						}while(!level.equals("graduação") && !level.equals("mestrado") && !level.equals("doutorado"));
-						System.out.print("Digite o ano de início:");
-						Ini[0] = sc.nextLine();
-						System.out.print("Digite o ano de término:");
-						Fim[0] = sc.nextLine();
-						
-						Element Instituição = new Element("instituição");
-						Attribute iesNome = new Attribute("nome", iesGrad[0]);
-						Attribute iesPais = new Attribute("país", pais[0]);
-						Instituição.setAttribute(iesNome);
-						Instituição.setAttribute(iesPais);
-						
-						Element Curso = new Element("curso");
-						Attribute ini = new Attribute("anoIni",Ini[0]);
-						Attribute fim = new Attribute("anoFim",Fim[0]);
-						Attribute Level = new Attribute("nível", level);
-						Curso.setAttribute(ini);
-						Curso.setAttribute(fim);
-						Curso.setAttribute(Level);
-						Curso.setText(course[0]);
-						
-						
-						List<Element> listFormação = a.getChildren("formação");
-						for(Element b : listFormação){
-							List<Element> listInstituição = b.getChildren();
-							for(Element c : listInstituição){
-								if(c.getAttributeValue("nome").equals(iesGrad[0])){
-									c.addContent(Curso);
-									
-									XMLOutputter xxout = new XMLOutputter();
-									try{
-										FileWriter arquivo = new FileWriter(new File("curriculo.xml"));
-										xxout.output(newDocument, arquivo);
-									} catch(IOException e) {
-										e.printStackTrace();
-									}
 								}else{
-									parentExist = true;
+									if ((i == 2) && (iesGrad[0].equals(iesGrad[2]) || iesGrad[1].equals(iesGrad[2]))){
+										continue;
+									}
+								}
+								instituição[i] = new Element("instituição");
+								iesName = new Attribute("nome", iesGrad[i]);
+								iesCountry = new Attribute("país", pais[i]);
+								instituição[i].setAttribute(iesName);
+								instituição[i].setAttribute(iesCountry);
+							}
+							
+							Element curso;
+							Attribute anoIni, anoFim, nivel;
+							for(int i = 0; i < 3; i++){
+								curso = new Element("curso");
+								nivel = new Attribute("nível", tipo[i]);
+								anoIni = new Attribute("anoIni", Ini[i]);
+								anoFim = new Attribute("anoFim", Fim[i]);
+								curso.setAttribute(anoIni);
+								curso.setAttribute(anoFim);
+								curso.setAttribute(nivel);
+								curso.setText(course[i]);
+								for(int j = 0; j < 3; j++){
+									if(instituição[j] != null){
+										if(instituição[j].getAttributeValue("nome").equals(iesGrad[i])){
+											instituição[j].addContent(curso);
+										}
+									}
 								}
 							}
-							if(parentExist){
-								Instituição.addContent(Curso);
-								b.addContent(Instituição);
-								
-								XMLOutputter xxout = new XMLOutputter();
-								try{
-									FileWriter arquivo = new FileWriter(new File("curriculo.xml"));
-									xxout.output(newDocument, arquivo);
-								} catch(IOException e) {
-									e.printStackTrace();
+							
+							for(int i = 0; i < 3; i++){
+								if(instituição[i] != null){
+									formação.addContent(instituição[i]);
 								}
 							}
-						}
-						
-						
-						break;
-					default:
-						System.out.println("Comando não cadastrado.");
-				}	
+							
+							a.addContent(formação);
+							
+							XMLOutputter xout = new XMLOutputter();
+							try{
+								FileWriter arquivo = new FileWriter(new File("curriculo.xml"));
+								xout.output(newDocument, arquivo);
+							} catch(IOException e) {
+								e.printStackTrace();
+							}
+							break;
+						case "2":
+							break;
+						case "3":
+							System.out.println("Saindo.");
+							break;
+						default:
+							System.out.println("Comando não cadastrado.");
+					}	
+				}
+				
 			}
-		}
-		if(noPerson){
-			System.out.println("Não existe pessoa de id: "+id+"\n");
-		}
+		}while(!option.equals("3"));
 	}
 	
 	private static void showRelatorio(String ies){

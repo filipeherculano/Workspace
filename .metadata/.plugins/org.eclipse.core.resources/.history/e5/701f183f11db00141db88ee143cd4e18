@@ -383,7 +383,7 @@ public class Main {
 			}
 		}
 		if(noPerson){
-			System.out.println("Não existe pessoa de id: "+id+"\n");
+			System.out.println("Não existe pessoa de id: "+id);
 		}
 	}
 	

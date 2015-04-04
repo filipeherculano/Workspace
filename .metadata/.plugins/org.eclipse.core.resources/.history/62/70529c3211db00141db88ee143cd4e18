@@ -380,10 +380,9 @@ public class Main {
 					default:
 						System.out.println("Comando não cadastrado.");
 				}	
+			}else{
+				System.out.println("Não existe pessoa de id: "+id);
 			}
-		}
-		if(noPerson){
-			System.out.println("Não existe pessoa de id: "+id+"\n");
 		}
 	}
 	

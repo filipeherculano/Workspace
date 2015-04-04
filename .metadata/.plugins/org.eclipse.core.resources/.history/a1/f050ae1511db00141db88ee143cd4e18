@@ -239,6 +239,7 @@ public class Main {
 				System.out.println("O que deseja fazer?");
 				System.out.println("<1> Adicionar nova formação.");
 				System.out.println("<2> Adicionar novo curso à uma formação existente.");
+				System.out.println("<3> Sair.");
 				option = sc.nextLine();
 				switch(option){
 					case "1":
@@ -377,13 +378,15 @@ public class Main {
 						
 						
 						break;
+					case "3":
+						System.out.println("Saindo.");
+						break;
 					default:
 						System.out.println("Comando não cadastrado.");
 				}	
+			}else{
+				System.out.println("Não existe pessoa de id: "+id);
 			}
-		}
-		if(noPerson){
-			System.out.println("Não existe pessoa de id: "+id+"\n");
 		}
 	}
 	
