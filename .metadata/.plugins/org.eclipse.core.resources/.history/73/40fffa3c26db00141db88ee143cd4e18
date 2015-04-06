@@ -100,7 +100,7 @@ public class Main {
 		}
 		
 		File file = new File("curriculo.xml");
-		Element root = null;
+		Element root = null, pessoa = null;
 		Document newDocument = null;
 		
 		if(!file.exists()){
@@ -125,7 +125,7 @@ public class Main {
 			index = String.valueOf(aux);
 		}
 		
-		Element pessoa = new Element("pessoa");
+		pessoa = new Element("pessoa");
 		Attribute id = new Attribute("id", index);
 		pessoa.setAttribute(id);
 		
@@ -146,6 +146,7 @@ public class Main {
 		dadosPessoais.addContent(idade);
 		
 		Element formação = new Element("formação");
+		
 		Element instituição[] = new Element[3];
 		Attribute iesName, iesCountry;
 		for(int i = 0; i < 3; i++){
