@@ -1,18 +1,9 @@
-Nome: filipe
-Sexo: Masculino
-Idade: 2121
+Nome: Camila maria herculano rocha
+Sexo: Feminino
+Idade: 29
 
-Graduação: UECE(-)
-Curso: -
-Início: -
-Fim: -
+graduação: UECE(Brasil)
+Curso: Ciência da computação
+Início: 2003
+Fim: 2007
 
-Mestrado: -(-)
-Curso: --
-Início: -
-Fim: -
-
-Doutorado: -(-)
-Curso: -
-Início: -
-Fim: -

@@ -1,18 +1,9 @@
-Nome: Filipe Herculano Rocha
-Sexo: Masculino
-Idade: 21
+Nome: Aline maria herculano rocha
+Sexo: Feminino
+Idade: 24
 
-Graduação: UECE(Brasil)
-Curso: Ciência da Computação
-Início: 2014
-Fim: Em andamento
+graduação: IFCE(Brasil)
+Curso: Processos químicos
+Início: 2010
+Fim: 2014
 
-Mestrado: NÃO FEZ(-)
-Curso: -
-Início: -
-Fim: -
-
-Doutorado: NÃO FEZ(-)
-Curso: -
-Início: -
-Fim: -

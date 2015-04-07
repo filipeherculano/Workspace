@@ -1,18 +1,34 @@
-Nome: fifififif
+Nome: Filipe Herculano Rocha
 Sexo: Masculino
 Idade: 21
 
-Graduação: UECE(-)
-Curso: -
-Início: -
-Fim: -
+graduação: UECE(Brasil)
+Curso: Ciência da computação
+Início: 2014
+Fim: 2018
 
-Mestrado: -(-)
-Curso: -
-Início: -
-Fim: -
+mestrado: STANFORD(Califórnia)
+Curso: Engenharia de software
+Início: 2008
+Fim: 2012
 
-Doutorado: -(-)
-Curso: -
-Início: -
-Fim: -
+doutorado: DAS(ffj)
+Curso: xasd
+Início: 20
+Fim: 10
+
+mestrado: ASDASDFA(asd)
+Curso: xasdafs
+Início: 2929
+Fim: 2191
+
+doutorado: AAAAAAAAAAAAAAAAA(aaaaaaaaaa)
+Curso: aaaaaaaaaaa
+Início: 22
+Fim: 22
+
+graduação: UFC(Brasil)
+Curso: Engenharia da computação
+Início: 2004
+Fim: 2008
+

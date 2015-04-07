@@ -23,7 +23,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		int r;
 		do{
-			System.out.println("O que você deseja?");
+			System.out.println("\nO que você deseja?");
 			System.out.println("1.Cadastrar um novo currículo.");
 			System.out.println("2.Editar currículo.");
 			System.out.println("-.Mostrar relatórios:");
@@ -87,16 +87,25 @@ public class Main {
 		}while(!(sex.equals("Masculino") || sex.equals("Feminino")));
 		
 		for(int i = 0; i < 3; i++){
+			System.out.println("Se não fez só insira 'Não feito'.");
 			System.out.print("Nome da IES que fez "+tipo[i]+":");
-				iesGrad[i] = sc.nextLine().toUpperCase();
-			System.out.print("País localizado:");
-				pais[i] = sc.nextLine();
-			System.out.print("Nome do curso:");
-				course[i] = sc.nextLine();
-			System.out.print("Ano de entrada:");
-				Ini[i] = sc.nextLine();
-			System.out.print("Ano de saída:");
-				Fim[i] = sc.nextLine();
+			iesGrad[i] = sc.nextLine().toUpperCase();
+			if(iesGrad[i].equals("NÃO FEITO")){
+				iesGrad[i] = "Não fez";
+				pais[i] = "Não fez";
+				course[i] = "Não fez";	
+				Ini[i] = "Não fez";
+				Fim[i] = "Não fez";
+			}else{
+				System.out.print("País localizado:");
+					pais[i] = sc.nextLine();
+				System.out.print("Nome do curso:");
+					course[i] = sc.nextLine();
+				System.out.print("Ano de entrada:");
+					Ini[i] = sc.nextLine();
+				System.out.print("Ano de saída:");
+					Fim[i] = sc.nextLine();
+			}
 		}
 		
 		File file = new File("curriculo.xml");
@@ -237,21 +246,30 @@ public class Main {
 				Scanner sc = new Scanner(System.in);
 				System.out.println("O que deseja fazer?");
 				System.out.println("<1> Adicionar nova formação.");
-				System.out.println("<2> Adicionar novo curso à uma formação existente.");
+				System.out.println("<2> Adicionar novo curso à uma formação existente.\n");
 				option = sc.nextLine();
 				switch(option){
 					case "1":
 						for(int i = 0; i < 3; i++){
+							System.out.println("Se não fez só insira 'Não feito'.");
 							System.out.print("Nome da IES que fez "+tipo[i]+":");
-								iesGrad[i] = sc.nextLine().toUpperCase();
-							System.out.print("País localizado:");
-								pais[i] = sc.nextLine();
-							System.out.print("Nome do curso:");
-								course[i] = sc.nextLine();
-							System.out.print("Ano de entrada:");
-								Ini[i] = sc.nextLine();
-							System.out.print("Ano de saída:");
-								Fim[i] = sc.nextLine();
+							iesGrad[i] = sc.nextLine().toUpperCase();
+							if(iesGrad[i].equals("NÃO FEITO")){
+								iesGrad[i] = "Não fez";
+								pais[i] = "Não fez";
+								course[i] = "Não fez";	
+								Ini[i] = "Não fez";
+								Fim[i] = "Não fez";
+							}else{
+								System.out.print("País localizado:");
+									pais[i] = sc.nextLine();
+								System.out.print("Nome do curso:");
+									course[i] = sc.nextLine();
+								System.out.print("Ano de entrada:");
+									Ini[i] = sc.nextLine();
+								System.out.print("Ano de saída:");
+									Fim[i] = sc.nextLine();
+							}
 						}
 						
 						Element formação = new Element("formação");
@@ -360,6 +378,7 @@ public class Main {
 								}
 							}
 							if(noParentExist){
+								noParentExist = false;
 								Instituição.addContent(Curso);
 								b.addContent(Instituição);
 								
@@ -407,21 +426,24 @@ public class Main {
 		
 		List<Element> listPessoas = root.getChildren();
 		for(Element e : listPessoas){
-			List<Element> listInstituição = e.getChild("formação").getChildren();
-			for(Element a : listInstituição){
-				if(a.getAttributeValue("nome").equals(ies)){
-					noPerson = false;
-					nome = a.getParentElement().getParentElement().getChild("dadosPessoais").getChild("nome").getText();
-					sexo = a.getParentElement().getParentElement().getChild("dadosPessoais").getChild("sexo").getText();
-					
-					System.out.println("A Pessoa chamada "+nome+" do sexo "+sexo+" estudou o(s) curso(s) de:");
-					
-					List<Element> listCurso = a.getChildren();
-					for(Element b : listCurso){
-						curso = b.getText();
-						System.out.println("-"+curso);
+			List<Element> listFormação = e.getChildren("formação");
+			for(Element b : listFormação){
+				List<Element> listInstituição = b.getChildren();
+				for(Element a : listInstituição){
+					if(a.getAttributeValue("nome").equals(ies) && !a.getAttributeValue("país").equals("Não fez")){
+						noPerson = false;
+						nome = e.getChild("dadosPessoais").getChild("nome").getText();
+						sexo = e.getChild("dadosPessoais").getChild("sexo").getText();
+						
+						System.out.println("A Pessoa chamada "+nome+" do sexo "+sexo+" estudou o(s) curso(s) de:");
+						
+						List<Element> listCurso = a.getChildren();
+						for(Element c : listCurso){
+							curso = c.getText();
+							System.out.println("-"+curso);
+						}
+						System.out.println("na "+ies+"\n");
 					}
-					System.out.println("na "+ies+"\n");
 				}
 			}
 		}
@@ -454,16 +476,20 @@ public class Main {
 		List<Element> listPessoas = root.getChildren();	
 		for(Element a : listPessoas){	
 			if(a.getChild("dadosPessoais").getChild("sexo").getText().equals(sexo)){
-				List<Element> listInstituição = a.getChild("formação").getChildren();
-				for(Element b : listInstituição){
-					List<Element> listCurso = b.getChildren();
-					for(Element c : listCurso){
-						if(c.getAttributeValue("nível").equals("mestrado") && b.getAttributeValue("país").equals(pais)){
-							noPerson = false;
-							System.out.println("A "+a.getChild("dadosPessoais").getChild("nome").getText()+" fez seu mestrado em "+c.getText()+" na faculdade "+b.getAttributeValue("nome")+" no Brasil.\n");
+				List<Element> listFormação = a.getChildren("formação");
+				for(Element d : listFormação){
+					List<Element> listInstituição = d.getChildren();
+					for(Element b : listInstituição){
+						List<Element> listCurso = b.getChildren();
+						for(Element c : listCurso){
+							if(c.getAttributeValue("nível").equals("mestrado") && b.getAttributeValue("país").equals(pais)){
+								noPerson = false;
+								System.out.println("A "+a.getChild("dadosPessoais").getChild("nome").getText()+" fez seu mestrado em "+c.getText()+" na faculdade "+b.getAttributeValue("nome")+" no Brasil.\n");
+							}
 						}
 					}
 				}
+				
 			}
 		}
 		
@@ -497,18 +523,21 @@ public class Main {
 		List<Element> listPessoas = root.getChildren();
 		for(Element a : listPessoas){
 			if(a.getChild("dadosPessoais").getChild("sexo").getText().equals(sexo)){
-				List<Element> listInstituição = a.getChild("formação").getChildren();
-				for(Element b : listInstituição){
-					List<Element> listCurso = b.getChildren();
-					for(Element c : listCurso){
-						if(c.getAttributeValue("nível").equals(nivel) && !b.getAttributeValue("país").equals(pais)){
-							nome = a.getChild("dadosPessoais").getChild("nome").getText();
-							idade = a.getChild("dadosPessoais").getChild("idade").getText();
-							ies = b.getAttributeValue("nome");
-							fim = c.getAttributeValue("anoFim");
-							curso = c.getText();
-							noPerson = false;
-							System.out.println("A pessoa chamada "+nome+" de "+idade+" anos estudou na "+ies+", concluiu o curso de "+curso+" no ano de "+fim+" no exterior.\n");
+				List<Element> listFormação = a.getChildren("formação");
+				for(Element d : listFormação){
+					List<Element> listInstituição = d.getChildren();
+					for(Element b : listInstituição){
+						List<Element> listCurso = b.getChildren();
+						for(Element c : listCurso){
+							if(c.getAttributeValue("nível").equals(nivel) && !b.getAttributeValue("país").equals(pais) && !b.getAttributeValue("país").equals("Não fez")){
+								nome = a.getChild("dadosPessoais").getChild("nome").getText();
+								idade = a.getChild("dadosPessoais").getChild("idade").getText();
+								ies = b.getAttributeValue("nome");
+								fim = c.getAttributeValue("anoFim");
+								curso = c.getText();
+								noPerson = false;
+								System.out.println("A pessoa chamada "+nome+" de "+idade+" anos estudou na "+ies+", concluiu o curso de "+curso+" no ano de "+fim+" no exterior.\n");
+							}
 						}
 					}
 				}
@@ -521,8 +550,8 @@ public class Main {
 	}
 	
 	private static void imprimirRelatorio(String option){
-		String nome = null, sexo = null, idade = null, curso[] = new String[3], ini[] = new String[3], fim[] = new String[3],
-				ies[] = new String[3], pais[] = new String[3], nivel[] = new String[3];
+		boolean noPerson = false;
+		String nome = null, sexo = null, idade = null, curso, ini, fim, ies, pais, nivel, s = null, tipo[] = {"graduação", "mestrado", "doutorado"};
 		
 		File file = new File("curriculo.xml");
 		
@@ -540,59 +569,57 @@ public class Main {
 		
 		Element root = newDocument.getRootElement();
 		
-		List<Element> list = root.getChildren();
-		for(Element e : list){
+		List<Element> listPessoas = root.getChildren();
+		for(Element e : listPessoas){
 			if(e.getAttributeValue("id").equals(option)){
+				noPerson = true;
 				nome = e.getChild("dadosPessoais").getChild("nome").getText();
 				sexo = e.getChild("dadosPessoais").getChild("sexo").getText();
 				idade = e.getChild("dadosPessoais").getChild("idade").getText();
 				
-				int k = 0;
-				do{
-					List<Element> listInstituição = e.getChild("formação").getChildren();
+				s = "Nome: "+nome+"\n"+
+					"Sexo: "+sexo+"\n"+
+					"Idade: "+idade+"\n\n";
+				
+				List<Element> listFormação = e.getChildren("formação");
+				for(Element c : listFormação){
+					List<Element> listInstituição = c.getChildren();
 					for(Element a : listInstituição){
 						List<Element> listCurso = a.getChildren();
 						for(Element b : listCurso){
-							ies[k] = b.getParentElement().getAttributeValue("nome");
-							pais[k] = b.getParentElement().getAttributeValue("país");
-							ini[k] = b.getAttributeValue("anoIni");
-							fim[k] = b.getAttributeValue("anoFim");
-							nivel[k] = b.getAttributeValue("nível");
-							curso[k] = b.getText();
-							k++;
+							System.out.println(a.getAttributeValue("nome"));
+							if(!a.getAttributeValue("nome").equals("Não fez")){
+								ies = a.getAttributeValue("nome");
+								pais = a.getAttributeValue("país");
+								ini = b.getAttributeValue("anoIni");
+								fim = b.getAttributeValue("anoFim");
+								nivel = b.getAttributeValue("nível");
+								curso = b.getText();
+								s += nivel+": "+ies+"("+pais+")\n"+
+									"Curso: "+curso+"\n"+
+									"Início: "+ini+"\n"+
+									"Fim: "+fim+"\n\n";
+							}
 						}
 					}
-				}while(k < 2);
+				}
 			}
 		}
 		
-		BufferedWriter out = null;
-		
-		String s =  "Nome: "+nome+"\n"+
-					"Sexo: "+sexo+"\n"+
-					"Idade: "+idade+"\n\n"+
-					"Graduação: "+ies[0]+"("+pais[0]+")\n"+
-					"Curso: "+curso[0]+"\n"+
-					"Início: "+ini[0]+"\n"+
-					"Fim: "+fim[0]+"\n\n"+
-					"Mestrado: "+ies[1]+"("+pais[1]+")\n"+
-					"Curso: "+curso[1]+"\n"+
-					"Início: "+ini[1]+"\n"+
-					"Fim: "+fim[1]+"\n\n"+
-					"Doutorado: "+ies[2]+"("+pais[2]+")\n"+
-					"Curso: "+curso[2]+"\n"+
-					"Início: "+ini[2]+"\n"+
-					"Fim: "+fim[2];
-		
-		try {
-			out = new BufferedWriter(new FileWriter("cv_"+option+".txt"));
-			out.write(s);
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally{
-			System.out.println("Currículo salvo como cv_"+option+".txt\n");
+		if(noPerson){
+			BufferedWriter out = null;
+			
+			try {
+				out = new BufferedWriter(new FileWriter("cv_"+option+".txt"));
+				out.write(s);
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally{
+				System.out.println("Currículo salvo como cv_"+option+".txt\n");
+			}
+		}else{
+			System.out.println("Não existe pessoa com este id.\n");
 		}
-		
 	}
 }
