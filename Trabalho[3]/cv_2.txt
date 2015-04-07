@@ -5,5 +5,5 @@ Idade: 29
 graduação: UECE(Brasil)
 Curso: Ciência da computação
 Início: 2003
-Fim: 2007
+Término: 2007
 

@@ -5,5 +5,5 @@ Idade: 24
 graduação: IFCE(Brasil)
 Curso: Processos químicos
 Início: 2010
-Fim: 2014
+Término: 2014
 

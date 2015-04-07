@@ -587,6 +587,7 @@ public class Main {
 					for(Element a : listInstituição){
 						List<Element> listCurso = a.getChildren();
 						for(Element b : listCurso){
+							System.out.println(a.getAttributeValue("nome"));
 							if(!a.getAttributeValue("nome").equals("Não fez")){
 								ies = a.getAttributeValue("nome");
 								pais = a.getAttributeValue("país");
@@ -597,7 +598,7 @@ public class Main {
 								s += nivel+": "+ies+"("+pais+")\n"+
 									"Curso: "+curso+"\n"+
 									"Início: "+ini+"\n"+
-									"Término: "+fim+"\n\n";
+									"Fim: "+fim+"\n\n";
 							}
 						}
 					}
